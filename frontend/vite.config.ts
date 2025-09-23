@@ -11,4 +11,16 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ["react", "react-dom"],
+          ui: ["@radix-ui/react-dropdown-menu", "@radix-ui/react-dialog"],
+        },
+      },
+    },
+
+    chunkSizeWarningLimit: 1000,
+  },
 });
