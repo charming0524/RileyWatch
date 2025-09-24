@@ -3,21 +3,26 @@ import { Movie } from "@/types";
 import { MovieCard } from "@/components/movie-card";
 import { useAuth } from "@/context/auth";
 
+// ✅ Static imports instead of dynamic import()
+import { fetchFavorites, fetchWatchlist } from "@/api/user";
+
 export default function ProfilePage() {
   const [favorites, setFavorites] = useState<Movie[]>([]);
   const [watchlist, setWatchlist] = useState<Movie[]>([]);
-  const [loading, setLoading] = useState(true); // ✅ spinner state
+  const [loading, setLoading] = useState(true);
 
   const auth = useAuth();
 
   useEffect(() => {
     let mounted = true;
+
     (async () => {
       try {
         if (auth?.user) {
-          const { fetchFavorites, fetchWatchlist } = await import("@/api/user");
+          // ✅ Direct calls from static import
           const fav = await fetchFavorites();
           const watch = await fetchWatchlist();
+
           if (mounted) {
             setFavorites(fav || []);
             setWatchlist(watch || []);
@@ -26,15 +31,17 @@ export default function ProfilePage() {
           // fallback to localStorage for anonymous users
           const fav = localStorage.getItem("favorites");
           const watch = localStorage.getItem("watchlist");
+
           if (fav) setFavorites(JSON.parse(fav));
           if (watch) setWatchlist(JSON.parse(watch));
         }
       } catch (err) {
         console.error("Failed to fetch lists", err);
       } finally {
-        if (mounted) setLoading(false); // ✅ stop spinner once done
+        if (mounted) setLoading(false);
       }
     })();
+
     return () => {
       mounted = false;
     };

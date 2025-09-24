@@ -7,7 +7,20 @@
   VITE_API_URL = "https://rileywatch.onrender.com/api"
   VITE_TMDB_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjMDRkZGE2ZjY0YTM3ZDBmYzg3MzM1Y2UxNjNmMWMzNiIsIm5iZiI6MTc1MzM5NTY1NS4wNzQsInN1YiI6IjY4ODJiMWM3ZGEzYmQ5MmExYTU1ZTUwZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JrHLo0zVQcvKJ5jg9MAB_PM9NZC5ic_cq4IDjwuxG1s"
 
+# Redirect all routes to index.html (SPA routing)
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Cache JS/CSS assets aggressively
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache HTML lightly (so updates deploy instantly)
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

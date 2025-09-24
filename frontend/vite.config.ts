@@ -3,7 +3,6 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
@@ -16,11 +15,12 @@ export default defineConfig({
       output: {
         manualChunks: {
           react: ["react", "react-dom"],
-          ui: ["@radix-ui/react-dropdown-menu", "@radix-ui/react-dialog"],
+          radix: ["@radix-ui/react-dropdown-menu", "@radix-ui/react-dialog"],
+          charts: ["recharts"],
+          ui: ["lucide-react"],
         },
       },
     },
-
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 1000, // suppress warnings up to 1 MB
   },
 });
