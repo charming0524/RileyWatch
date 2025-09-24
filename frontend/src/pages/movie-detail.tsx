@@ -247,30 +247,32 @@ export default function MovieDetail() {
 
             <TabsContent value="similar" className="pt-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {similarMovies?.map((sm) => (
-                    <Link
-                      to={`/movies/${sm._id}`}
-                      key={sm._id}
-                      className="flex gap-4 animate-fade-in"
-                    >
-                      <img
-                        src={sm.posterUrl || "/placeholder.svg"}
-                        alt={sm.title}
-                        className="w-24 h-36 object-cover rounded"
-                      />
-                      <div>
-                        <h3 className="font-semibold">{sm.title}</h3>
-                        <div className="text-sm text-muted-foreground mb-1">
-                          {sm.releaseYear} • {sm.genres?.join(", ")}
-                        </div>
-                        <div className="flex items-center text-yellow-400 text-sm mb-2">
-                          <Star className="h-3 w-3 mr-1 fill-yellow-400 stroke-yellow-400" />
-                          <span>{sm.imdbRating}</span>
-                        </div>
-                        <p className="text-sm line-clamp-2">{sm.description}</p>
+                {similarMovies?.map((movie) => (
+                  <Link
+                    to={`/movies/${movie._id}`}
+                    key={movie._id}
+                    className="flex gap-4 animate-fade-in"
+                  >
+                    <img
+                      src={movie.posterUrl || "/placeholder.svg"}
+                      alt={movie.title}
+                      className="w-24 h-36 object-cover rounded"
+                    />
+                    <div>
+                      <h3 className="font-semibold">{movie.title}</h3>
+                      <div className="text-sm text-muted-foreground mb-1">
+                        {movie.releaseYear} • {movie.genres?.join(", ")}
                       </div>
-                    </Link>
-                  ))}
+                      <div className="flex items-center text-yellow-400 text-sm mb-2">
+                        <Star className="h-3 w-3 mr-1 fill-yellow-400 stroke-yellow-400" />
+                        <span>{movie.imdbRating}</span>
+                      </div>
+                      <p className="text-sm line-clamp-2">
+                        {movie.description}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
               </div>
             </TabsContent>
           </Tabs>
