@@ -47,7 +47,9 @@ function removeFromList(user: any, key: string, movieId: string) {
 export default function MovieDetail() {
   const { movieId } = useParams();
   const { data: movie, isLoading: loading, error } = useMovieById(movieId!);
-  const { data: similarMovies } = useSimilarMovies(movieId!);
+  const { data: similarMovies, isLoading: similarLoading } = useSimilarMovies(
+    movieId!
+  );
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -246,9 +248,13 @@ export default function MovieDetail() {
             </TabsContent>
 
             <TabsContent value="similar" className="pt-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {similarMovies &&
-                  similarMovies?.map((movie) => (
+              {similarLoading ? (
+                <div className="flex justify-center items-center h-40">
+                  <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-blue-500"></div>
+                </div>
+              ) : similarMovies && similarMovies.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {similarMovies.map((movie) => (
                     <Link
                       to={`/movies/${movie._id}`}
                       key={movie._id}
@@ -274,7 +280,12 @@ export default function MovieDetail() {
                       </div>
                     </Link>
                   ))}
-              </div>
+                </div>
+              ) : (
+                <p className="text-gray-400 text-center">
+                  No similar movies found.
+                </p>
+              )}
             </TabsContent>
           </Tabs>
         </div>

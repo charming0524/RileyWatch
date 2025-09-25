@@ -102,9 +102,10 @@ export function useMutateRating() {
 
 export function useDeleteRating() {
   return useMutation({
-    mutationFn: async ({ movieId }: { movieId: string }) =>
-      { await deleteRating({
+    mutationFn: async ({ movieId }: { movieId: string }) => {
+      await deleteRating({
         movieId,
-      }); },
+      });
+    },
   });
 }
