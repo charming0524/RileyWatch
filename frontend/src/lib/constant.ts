@@ -1,6 +1,6 @@
 const constant = {
   ACCESS_TOKEN_KEY: "movie_recommendation_system_access_token",
-  ACCESS_TOKEN_EXPIRE: 432000000, // 5 days
+  ACCESS_TOKEN_EXPIRE: 5, // 5 days
 };
 
 export default constant;
