@@ -6,7 +6,7 @@ import { Link, Outlet } from "react-router";
 
 export default function RootLayout() {
   return (
-    <div className="flex  flex-col">
+    <div className="flex min-h-screen flex-col">
       {/* Header */}
       <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex h-16 items-center justify-between gap-4 py-4">
@@ -46,7 +46,7 @@ export default function RootLayout() {
           <p className="text-center text-sm text-muted-foreground md:text-left">
             Built with ❤️ by{" "}
             <Link
-              to="https://github.com/Charming0524"
+              to="https://github.com/charming0524"
               target="_blank"
               className="text-blue-500 underline hover:text-blue-700 hover:no-underline transition-all"
             >

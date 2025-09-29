@@ -218,19 +218,19 @@ export default function MovieDetail() {
             <TabsList className="grid w-full grid-cols-3 rounded-lg border bg-muted p-1">
               <TabsTrigger
                 value="cast"
-                className="data-[state=active]:bg-background data-[state=active]:text-foreground rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-all"
+                className="data-[state=active]:bg-chart-3 data-[state=active]:text-background rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-all"
               >
                 Cast & Crew
               </TabsTrigger>
               <TabsTrigger
                 value="reviews"
-                className="data-[state=active]:bg-background data-[state=active]:text-foreground rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-all"
+                className="data-[state=active]:bg-chart-3 data-[state=active]:text-background rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-all"
               >
                 Reviews
               </TabsTrigger>
               <TabsTrigger
                 value="similar"
-                className="data-[state=active]:bg-background data-[state=active]:text-foreground rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-all"
+                className="data-[state=active]:bg-chart-3 data-[state=active]:text-background rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-all"
               >
                 Similar Movies
               </TabsTrigger>
