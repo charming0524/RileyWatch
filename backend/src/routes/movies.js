@@ -197,7 +197,7 @@ router.get("/:id/similar-movies", async (req, res) => {
     const referenceMovie = await Movie.findById(req.params.id);
 
     if (!referenceMovie) {
-      return [];
+      return res.json([]);
     }
 
     const genres = referenceMovie.genres || [];
