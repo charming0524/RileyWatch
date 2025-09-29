@@ -51,7 +51,12 @@ export async function fetchMovieById(id: string): Promise<Movie> {
 }
 
 export async function fetchSimilarMovies(moviesId: string): Promise<Movie[]> {
-  const response = await api.get<Movie[]>(`/movies/${moviesId}/similar-movies`);
+  const response = await api.get<Movie[]>(
+    `/movies/${moviesId}/similar-movies`,
+    {
+      withCredentials: false,
+    }
+  );
   return response.data;
 }
 
