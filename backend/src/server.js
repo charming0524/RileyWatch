@@ -11,7 +11,7 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://rileywatch.netlify.app"],
+    origin: ["http://localhost:5173", "https://rileywatch.netlify.app", "https://riley-watch.vercel.app/"],
     credentials: true,
   })
 );
