@@ -8,7 +8,7 @@ interface GetAllMoviesResponse {
   pages: number;
 }
 
-// API function to fetch movies
+
 export async function fetchMovies({
   page = 1,
   limit = 10,
@@ -25,23 +25,12 @@ export async function fetchMovies({
 }
 
 export async function fetchHybridRecommendation(): Promise<Movie[]> {
-  const response = await api.get<Movie[]>(
-    `/movies/recommendations/personalized`
-  );
+  const response = await api.get<Movie[]>(`/movies/recommendations/personalized`);
   return response.data;
 }
 
 export async function fetchContentBasedRecommendation(): Promise<Movie[]> {
-  const response = await api.get<Movie[]>(
-    `/movies/recommendations/content-based`
-  );
-  return response.data;
-}
-
-export async function fetchUserBasedRecommendation(): Promise<Movie[]> {
-  const response = await api.get<Movie[]>(
-    `/movies/recommendations/users-based`
-  );
+  const response = await api.get<Movie[]>(`/movies/recommendations/content-based`);
   return response.data;
 }
 
@@ -51,19 +40,23 @@ export async function fetchMovieById(id: string): Promise<Movie> {
 }
 
 export async function fetchSimilarMovies(moviesId: string): Promise<Movie[]> {
-  const response = await api.get<Movie[]>(
-    `/movies/${moviesId}/similar-movies`,
-    {
-      withCredentials: false,
-    }
-  );
+  
+  const response = await api.get<Movie[]>(`/movies/${moviesId}/similar-movies`, {
+    withCredentials: false,
+  });
   return response.data;
 }
 
-export async function fetchRatingsByMovieId(
-  movieId: string
-): Promise<Rating[]> {
+export async function fetchRatingsByMovieId(movieId: string): Promise<Rating[]> {
   const response = await api.get<Rating[]>(`/movies/${movieId}/ratings`);
+  return response.data;
+}
+
+
+export async function fetchUserBasedRecommendation(): Promise<Movie[]> {
+  const response = await api.get<Movie[]>(`/movies/recommendations/users-based`, {
+    withCredentials: true,
+  });
   return response.data;
 }
 
@@ -76,11 +69,11 @@ export async function mutateRating({
   comment: string;
   movieId: string;
 }): Promise<Rating> {
-  const response = await api.post<Rating>(`/movies/${movieId}/ratings`, {
-    rating,
-    comment,
-  });
-
+  const response = await api.post<Rating>(
+    `/movies/${movieId}/ratings`,
+    { rating, comment },
+    { withCredentials: true }
+  );
   return response.data;
 }
 
@@ -89,5 +82,5 @@ export async function deleteRating({
 }: {
   movieId: string;
 }): Promise<void> {
-  await api.delete(`/movies/${movieId}/ratings`);
+  await api.delete(`/movies/${movieId}/ratings`, { withCredentials: true });
 }
