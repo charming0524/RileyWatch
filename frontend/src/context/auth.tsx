@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { createContext, use, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { User } from "@/types";
 import { useGetAuthUser } from "@/hooks/useUsers";
@@ -23,12 +23,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const queryClient = useQueryClient();
 
-  // Fetch the user details if a refresh token is present
+  
   const { isLoading, data } = useGetAuthUser();
 
   const login = (accessToken: string, user: User) => {
+    
     Cookies.set(constant.ACCESS_TOKEN_KEY, accessToken, {
       expires: constant.ACCESS_TOKEN_EXPIRE,
+      secure: true,      
+      sameSite: "None",  
     });
 
     setUser(user);
@@ -38,16 +41,18 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const logout = async () => {
     Cookies.remove(constant.ACCESS_TOKEN_KEY);
     setUser(null);
+    queryClient.removeQueries(); 
   };
 
+  
   useEffect(() => {
-    if (!isLoading && !!data) {
+    if (!isLoading && data) {
       setUser(data);
     }
   }, [data, isLoading]);
 
   return (
-    <AuthContext
+    <AuthContext.Provider
       value={{
         user,
         loading: isLoading,
@@ -57,14 +62,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       }}
     >
       {children}
-    </AuthContext>
+    </AuthContext.Provider>
   );
 };
 
 export function useAuth() {
-  const context = use(AuthContext);
+  const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth must be within an AuthProvider");
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 }
