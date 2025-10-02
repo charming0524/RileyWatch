@@ -16,7 +16,7 @@ export function MainNav() {
           to="/movies"
           className="text-sm font-bold text-lg px-2 py-1 rounded-xl transition-all duration-200 text-background hover:bg-foreground hover:text-chart-2"
         >
-          Movies
+          Genres
         </Link>
       </nav>
     </div>
